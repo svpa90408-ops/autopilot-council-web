@@ -19,7 +19,7 @@
     {
       "binding": "DB",
       "database_name": "autopilot-council-db",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "database_id": "bd36d592-0c7f-4bfe-9afa-29f1e5572c70",
       "migrations_dir": "migrations"
     }
   ],
