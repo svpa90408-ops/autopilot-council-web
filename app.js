@@ -1,8 +1,10 @@
 "use strict";
 
-const APP_VERSION = "3.0.0";
+const APP_VERSION = "3.1.0";
 const STARTING_VALUE = 1150;
 const MEETING_INTERVAL_SECONDS = 30 * 60;
+const AUTO_RESEARCH_INTERVAL_SECONDS = 12;
+const AUTO_MARKET_TICK_SECONDS = 3;
 
 const pageMeta = {
   command: ["SYSTEM OVERVIEW // 概要", "Command Centre"],
@@ -49,6 +51,8 @@ const state = {
   halted: false,
   mode: "approval",
   meetingSeconds: MEETING_INTERVAL_SECONDS,
+  autoResearchSeconds: AUTO_RESEARCH_INTERVAL_SECONDS,
+  autoMarketTickSeconds: AUTO_MARKET_TICK_SECONDS,
   latestDecision: null,
   pendingDecision: null,
   cycle: 0,
@@ -807,13 +811,14 @@ function generateConversation(decision) {
   state.conversations = [...lines, ...state.conversations].slice(0, 100);
 }
 
-function runResearchCycle() {
+function runResearchCycle(options = {}) {
   if (state.halted) {
     showToast("Research cycle blocked while emergency halt is active.");
     return;
   }
 
   state.cycle += 1;
+  state.autoResearchSeconds = AUTO_RESEARCH_INTERVAL_SECONDS;
   simulatePortfolioMovement();
 
   const decision = {
@@ -845,7 +850,9 @@ function runResearchCycle() {
 
   renderAll();
   saveState();
-  showToast(`Research cycle complete: ${decision.symbol} → ${decision.verdict}`);
+  if (!options.silent) {
+    showToast(`Research cycle complete: ${decision.symbol} → ${decision.verdict}`);
+  }
 }
 
 function approvePendingDecision() {
@@ -1446,6 +1453,32 @@ function switchPage(page) {
   if (page === "learning") renderLearningPage();
 }
 
+
+function updateAutopilotLoop() {
+  if (state.halted || state.mode !== "autopilot") {
+    return;
+  }
+
+  state.autoMarketTickSeconds -= 1;
+  state.autoResearchSeconds -= 1;
+
+  if (state.autoMarketTickSeconds <= 0) {
+    state.autoMarketTickSeconds = AUTO_MARKET_TICK_SECONDS;
+    simulatePortfolioMovement();
+    renderPortfolios();
+    renderHoldingsPage();
+    renderPerformancePage();
+    renderLossPage();
+    saveState();
+  }
+
+  if (state.autoResearchSeconds <= 0) {
+    state.autoResearchSeconds = AUTO_RESEARCH_INTERVAL_SECONDS;
+    runResearchCycle({ silent: true });
+    addActivity("Autopilot completed an automatic research cycle.");
+  }
+}
+
 function updateMeetingCountdown() {
   if (!state.halted) {
     state.meetingSeconds -= 1;
@@ -1491,10 +1524,24 @@ function initialiseEvents() {
 
   document.getElementById("mode-toggle").addEventListener("change", (event) => {
     state.mode = event.target.checked ? "autopilot" : "approval";
-    addActivity(`Execution mode changed to ${state.mode.toUpperCase()}.`);
+    state.autoResearchSeconds = AUTO_RESEARCH_INTERVAL_SECONDS;
+    state.autoMarketTickSeconds = AUTO_MARKET_TICK_SECONDS;
+
+    if (state.mode === "autopilot") {
+      addActivity(
+        `AUTOPILOT enabled: market ticks every ${AUTO_MARKET_TICK_SECONDS}s and research cycles every ${AUTO_RESEARCH_INTERVAL_SECONDS}s while this tab is open.`
+      );
+    } else {
+      addActivity("APPROVAL mode enabled: automatic cycles paused.");
+    }
+
     renderLatestDecision();
     saveState();
-    showToast(`${state.mode === "autopilot" ? "Autopilot" : "Approval"} mode enabled.`);
+    showToast(
+      state.mode === "autopilot"
+        ? "Autopilot started. Automatic cycles are now running."
+        : "Autopilot paused. Manual approval mode enabled."
+    );
   });
 
   document.getElementById("close-modal-button").addEventListener("click", () => {
@@ -1512,7 +1559,27 @@ loadState();
 renderAll();
 initialiseEvents();
 updateMeetingCountdown();
-window.setInterval(updateMeetingCountdown, 1000);
+window.setInterval(() => {
+  updateMeetingCountdown();
+  updateAutopilotLoop();
+}, 1000);
 
 window.addEventListener("beforeunload", saveState);
 console.info(`Autopilot Council V${APP_VERSION} loaded in paper-only demo mode.`);
+
+// V4 bridge surface. The optional cloudBridge.js file uses this public surface
+// without exposing any API secret in the repository.
+window.AutopilotDemo = Object.freeze({
+  state,
+  renderAll,
+  renderPortfolios,
+  renderActivity,
+  renderLatestDecision,
+  renderConversationPage,
+  renderHoldingsPage,
+  renderPerformancePage,
+  renderLossPage,
+  showToast,
+  addActivity,
+  switchPage
+});
