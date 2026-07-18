@@ -1,0 +1,6 @@
+# Never commit the real values.
+ADMIN_TOKEN=replace-with-a-long-random-secret
+TWELVE_DATA_API_KEY=
+ALPHA_VANTAGE_API_KEY=
+# Optional: use OpenAI instead of Workers AI in a later paid-ready adapter.
+OPENAI_API_KEY=

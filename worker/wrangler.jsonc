@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "autopilot-council-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-15",
+  "observability": { "enabled": true },
+  "vars": {
+    "APP_ENV": "production",
+    "APP_MODE": "paper",
+    "LIVE_TRADING_ENABLED": "false",
+    "ALLOWED_ORIGIN": "https://svpa90408-ops.github.io",
+    "AI_ENABLED": "true",
+    "AI_MODEL": "@cf/meta/llama-3.1-8b-instruct-fast",
+    "MARKET_PROVIDER": "twelve_data",
+    "SEC_USER_AGENT": "AutopilotCouncil/4.0 contact@example.com",
+    "MAX_AI_CALLS_PER_CYCLE": "1"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "autopilot-council-db",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ai": { "binding": "AI" },
+  "triggers": {
+    "crons": ["*/30 * * * *"]
+  }
+}

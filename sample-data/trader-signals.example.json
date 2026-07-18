@@ -1,0 +1,18 @@
+{
+  "signals": [
+    {
+      "traderId": "verified-trader-01",
+      "displayName": "Verified Trader 01",
+      "verified": true,
+      "brokerVerified": true,
+      "riskAdjustedReturn": 31.2,
+      "maxDrawdown": 8.4,
+      "consistency": 73,
+      "completedTrades": 145,
+      "symbol": "AAPL",
+      "action": "BUY",
+      "timestamp": "2026-07-18T02:00:00Z",
+      "sourceUrl": "https://provider.example/trade/01"
+    }
+  ]
+}

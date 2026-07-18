@@ -1,0 +1,16 @@
+{
+  "trades": [
+    {
+      "politician": "Example Member",
+      "owner": "self",
+      "symbol": "MSFT",
+      "transactionType": "purchase",
+      "transactionDate": "2026-06-15",
+      "disclosureDate": "2026-06-28",
+      "amountMin": 1001,
+      "amountMax": 15000,
+      "officialUrl": "https://example.gov/official-disclosure",
+      "committeeNotes": ["Cloud policy exposure"]
+    }
+  ]
+}

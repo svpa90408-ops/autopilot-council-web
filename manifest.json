@@ -1,0 +1,13 @@
+{
+  "name": "Autopilot Council V4",
+  "version": "4.0.0",
+  "architecture": "GitHub Pages frontend + Cloudflare Worker + D1 + Cron + Workers AI",
+  "mode": "paper-only",
+  "liveTradingEnabled": false,
+  "tested": {
+    "typescript": true,
+    "unitTests": 3,
+    "frontendJavaScriptSyntax": true,
+    "wranglerDryRun": true
+  }
+}

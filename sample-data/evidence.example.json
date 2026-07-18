@@ -1,0 +1,15 @@
+{
+  "items": [
+    {
+      "sourceType": "company_announcement",
+      "sourceName": "Example Company Investor Relations",
+      "url": "https://example.com/investors/announcement",
+      "title": "Official company announcement",
+      "publishedAt": "2026-07-18T01:00:00Z",
+      "trustTier": 1,
+      "status": "VERIFIED",
+      "summary": "Primary-source confirmation for a company event.",
+      "symbol": "MSFT"
+    }
+  ]
+}

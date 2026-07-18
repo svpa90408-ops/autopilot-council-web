@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Autopilot Council V3 — browser-based AI paper-trading research command centre."
+  />
+  <title>Autopilot Council V3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="background-glow glow-a" aria-hidden="true"></div>
+  <div class="background-glow glow-b" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-symbol">
+        <span>A</span>
+        <i></i>
+      </div>
+      <div>
+        <p class="micro">PROJECT JARVIS // 戦略</p>
+        <h1>AUTOPILOT</h1>
+        <small>COUNCIL V3</small>
+      </div>
+    </div>
+
+    <div class="system-state" id="system-state">
+      <span class="state-light"></span>
+      <div>
+        <strong>PAPER SYSTEM ONLINE</strong>
+        <small>No broker or real-money access</small>
+      </div>
+    </div>
+
+    <nav id="main-nav">
+      <p class="nav-section">COMMAND</p>
+      <button class="nav-button active" data-page="command">
+        <span class="nav-index">01</span>
+        <span>Command Centre</span>
+      </button>
+
+      <p class="nav-section">INTELLIGENCE</p>
+      <button class="nav-button" data-page="congress">
+        <span class="nav-index">02</span>
+        <span>Congress Intelligence</span>
+      </button>
+      <button class="nav-button" data-page="news">
+        <span class="nav-index">03</span>
+        <span>News & Catalysts</span>
+      </button>
+      <button class="nav-button" data-page="whales">
+        <span class="nav-index">04</span>
+        <span>Whales & Insiders</span>
+      </button>
+      <button class="nav-button" data-page="quant">
+        <span class="nav-index">05</span>
+        <span>Quant Intelligence</span>
+      </button>
+      <button class="nav-button" data-page="consensus">
+        <span class="nav-index">06</span>
+        <span>Top 10 Consensus</span>
+      </button>
+
+      <p class="nav-section">COUNCIL</p>
+      <button class="nav-button" data-page="chamber">
+        <span class="nav-index">07</span>
+        <span>Council Chamber</span>
+      </button>
+      <button class="nav-button" data-page="conversations">
+        <span class="nav-index">08</span>
+        <span>Agent Conversations</span>
+      </button>
+      <button class="nav-button" data-page="research">
+        <span class="nav-index">09</span>
+        <span>Research Queue</span>
+      </button>
+      <button class="nav-button" data-page="timeline">
+        <span class="nav-index">10</span>
+        <span>Decision Timeline</span>
+      </button>
+
+      <p class="nav-section">PORTFOLIO</p>
+      <button class="nav-button" data-page="holdings">
+        <span class="nav-index">11</span>
+        <span>Holdings</span>
+      </button>
+      <button class="nav-button" data-page="performance">
+        <span class="nav-index">12</span>
+        <span>Performance Lab</span>
+      </button>
+      <button class="nav-button" data-page="loss">
+        <span class="nav-index">13</span>
+        <span>Loss Review</span>
+      </button>
+
+      <p class="nav-section">GOVERNANCE</p>
+      <button class="nav-button" data-page="learning">
+        <span class="nav-index">14</span>
+        <span>Meta-Learning</span>
+      </button>
+      <button class="nav-button" data-page="sources">
+        <span class="nav-index">15</span>
+        <span>Sources & Evidence</span>
+      </button>
+      <button class="nav-button" data-page="risk">
+        <span class="nav-index">16</span>
+        <span>Risk Controls</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div><span>EXECUTION</span><strong>PAPER ONLY</strong></div>
+      <div><span>AI BACKEND</span><strong>NOT CONNECTED</strong></div>
+      <div><span>BUILD</span><strong>WEB V3.0</strong></div>
+    </div>
+  </aside>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="page-identity">
+        <p class="micro" id="page-kicker">SYSTEM OVERVIEW // 概要</p>
+        <h2 id="page-title">Command Centre</h2>
+      </div>
+
+      <div class="topbar-controls">
+        <div class="meeting-clock">
+          <span>NEXT COUNCIL</span>
+          <strong id="meeting-countdown">30:00</strong>
+        </div>
+
+        <label class="mode-switch" title="Approval mode requires manual approval for simulated orders.">
+          <span>APPROVAL</span>
+          <input type="checkbox" id="mode-toggle">
+          <i></i>
+          <span>AUTOPILOT</span>
+        </label>
+
+        <button class="button button-secondary" id="run-cycle-button">Run Research Cycle</button>
+        <button class="button button-secondary" id="meeting-button">Council Meeting</button>
+        <button class="button button-danger" id="halt-button">Emergency Halt</button>
+      </div>
+    </header>
+
+    <section class="page active" id="page-command">
+      <div class="command-hero">
+        <article class="hero-value panel">
+          <div>
+            <p class="micro">COMBINED PAPER VALUE</p>
+            <h3 id="combined-value">$5,750.00</h3>
+            <p class="positive-copy" id="combined-return">+$0.00 (+0.00%)</p>
+          </div>
+
+          <div class="hero-metrics">
+            <div>
+              <span>ACTIVE AGENTS</span>
+              <strong>42</strong>
+            </div>
+            <div>
+              <span>RESEARCH TASKS</span>
+              <strong id="task-count">12</strong>
+            </div>
+            <div>
+              <span>POSITIONS</span>
+              <strong id="position-count">0</strong>
+            </div>
+            <div>
+              <span>CASH RESERVE</span>
+              <strong id="cash-reserve">100%</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="global-scanner panel">
+          <div class="map-shell">
+            <div class="world-map" aria-label="Stylised global market scanner">
+              <span class="land land-a"></span>
+              <span class="land land-b"></span>
+              <span class="land land-c"></span>
+              <span class="land land-d"></span>
+              <span class="map-node node-a"></span>
+              <span class="map-node node-b"></span>
+              <span class="map-node node-c"></span>
+              <span class="map-node node-d"></span>
+              <span class="map-node node-e"></span>
+              <span class="map-sweep"></span>
+            </div>
+          </div>
+          <div class="scanner-copy">
+            <p class="micro">GLOBAL SCANNER // 世界</p>
+            <h3>Broad Universe Monitor</h3>
+            <p>
+              Stocks, ETFs, filings, news, macro events, supply chains,
+              commodities and geopolitical signals.
+            </p>
+            <div class="scanner-status">
+              <span></span>
+              OFFLINE DEMO FEED
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-header">
+        <div>
+          <p class="micro">STRATEGY DEPARTMENTS</p>
+          <h3>Independent Portfolios</h3>
+        </div>
+        <div class="section-actions">
+          <span class="paper-badge">SIMULATED FUNDS</span>
+          <button class="button button-small" id="quick-simulate-button">Quick Cycle</button>
+        </div>
+      </div>
+
+      <div class="portfolio-grid" id="portfolio-grid"></div>
+
+      <div class="command-lower-grid">
+        <article class="panel latest-verdict-panel">
+          <div class="panel-header">
+            <div>
+              <p class="micro">LATEST COUNCIL VERDICT</p>
+              <h3 id="verdict-title">Waiting for the first research cycle</h3>
+            </div>
+            <span class="status-tag status-waiting" id="verdict-status">WAITING</span>
+          </div>
+
+          <div class="score-grid">
+            <div class="score-card score-green">
+              <span>BULL</span>
+              <strong id="bull-score">--</strong>
+            </div>
+            <div class="score-card score-red">
+              <span>BEAR</span>
+              <strong id="bear-score">--</strong>
+            </div>
+            <div class="score-card score-blue">
+              <span>FACTS</span>
+              <strong id="fact-score">--</strong>
+            </div>
+            <div class="score-card score-purple">
+              <span>CONFIDENCE</span>
+              <strong id="confidence-score">--</strong>
+            </div>
+            <div class="score-card score-yellow">
+              <span>RISK</span>
+              <strong id="risk-score">--</strong>
+            </div>
+          </div>
+
+          <p class="verdict-copy" id="verdict-copy">
+            The Fact Checker and Risk Manager can veto every simulated order.
+          </p>
+
+          <div class="decision-actions" id="decision-actions">
+            <button class="button button-approve" id="approve-button" disabled>Approve Paper Trade</button>
+            <button class="button button-reject" id="reject-button" disabled>Reject</button>
+          </div>
+        </article>
+
+        <article class="panel activity-panel">
+          <div class="panel-header">
+            <div>
+              <p class="micro">SYSTEM ACTIVITY</p>
+              <h3>Event Stream</h3>
+            </div>
+            <span class="live-badge"><i></i> LIVE</span>
+          </div>
+          <div class="activity-feed" id="activity-feed"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="page" id="page-congress"></section>
+    <section class="page" id="page-news"></section>
+    <section class="page" id="page-whales"></section>
+    <section class="page" id="page-quant"></section>
+    <section class="page" id="page-consensus"></section>
+    <section class="page" id="page-chamber"></section>
+    <section class="page" id="page-conversations"></section>
+    <section class="page" id="page-research"></section>
+    <section class="page" id="page-timeline"></section>
+    <section class="page" id="page-holdings"></section>
+    <section class="page" id="page-performance"></section>
+    <section class="page" id="page-loss"></section>
+    <section class="page" id="page-learning"></section>
+    <section class="page" id="page-sources"></section>
+    <section class="page" id="page-risk"></section>
+  </main>
+
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="panel-header">
+        <div>
+          <p class="micro">COUNCIL SESSION</p>
+          <h3 id="modal-title">Thirty-Minute Review</h3>
+        </div>
+        <button class="icon-button" id="close-modal-button" aria-label="Close">×</button>
+      </div>
+      <div class="meeting-transcript" id="meeting-transcript"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  <script src="cloudBridge.js"></script>
+</body>
+</html>

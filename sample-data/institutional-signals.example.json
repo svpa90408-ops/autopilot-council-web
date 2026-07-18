@@ -1,0 +1,18 @@
+{
+  "signals": [
+    {
+      "sourceType": "13F",
+      "sourceName": "Example official filing",
+      "symbol": "JPM",
+      "action": "BUY",
+      "filingDate": "2026-06-30",
+      "sourceAgeDays": 18,
+      "signalStrength": 0.74,
+      "eventRisk": 0.36,
+      "officialUrl": "https://www.sec.gov/edgar/search/",
+      "title": "Example institutional position increase",
+      "summary": "Normalised from an official filing.",
+      "sector": "Financials"
+    }
+  ]
+}
