@@ -5,3 +5,4 @@ window.AUTOPILOT_CONFIG = Object.freeze({
   APP_MODE: "paper",
   LIVE_TRADING_ENABLED: false
 });
+
